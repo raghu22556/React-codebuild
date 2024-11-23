@@ -1,25 +1,26 @@
 version: 0.2
 
-env:
-  variables:
-    NODE_OPTIONS: '--openssl-legacy-provider'
-
 phases:
   install:
     runtime-versions:
       nodejs: 18
+   
     commands:
-      # install npm
-      - npm install
-      - npm install react-scripts --save
-
+        # install npm
+        - npm install
+        - npm install react-scripts --save
+       
   build:
     commands:
-      # run build script
-      - npm run build
-
+        # run build script
+        - npm run build
+     
 artifacts:
+  # include all files required to run application
+  # notably excluded is node_modules, as this will cause overwrite error on deploy
   files:
-    - build/**/*
-  base-directory: build
-  discard-paths: yes
+    - public/**/*
+    - src/**/*
+    - package.json
+    - appspec.yml
+    - scripts/**/*
